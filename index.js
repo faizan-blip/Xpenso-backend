@@ -7,15 +7,15 @@ const PORT = process.env.PORT || 3000
 
 
 const corsOptions = {
-    origin: 'https://x-penso.vercel.app',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
-    allowedHeaders: 'Content-Type,Authorization', // Add headers as needed
-};
-
+    allowedHeaders: 'Content-Type,Authorization',
+  };
   
-app.use(cors(corsOptions));
+  
+app.options(cors(corsOptions));
 app.use(express.json());
 const path = require('./routes/expense');
 app.use('/api', path);
