@@ -14,8 +14,8 @@ const corsOptions = {
     allowedHeaders: 'Content-Type,Authorization',
   };
   
-  
-app.options(cors(corsOptions));
+  // Apply CORS middleware to all routes
+  app.use(cors(corsOptions));
 app.use(express.json());
 const path = require('./routes/expense');
 app.use('/api', path);
