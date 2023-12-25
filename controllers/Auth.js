@@ -99,7 +99,6 @@ exports.login = async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "2h",
     });
-
     res.status(200).json({
       status: true,
       data: {
