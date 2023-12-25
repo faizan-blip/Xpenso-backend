@@ -11,12 +11,15 @@ const corsOptions = {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
-  };
+    allowedHeaders: 'Content-Type,Authorization', // Add headers as needed
+};
+
   
-  app.use(cors(corsOptions));
-  app.use(express.json());
-const path = require('./routes/expense')
-app.use('/api' , path)
+app.use(cors(corsOptions));
+app.use(express.json());
+const path = require('./routes/expense');
+app.use('/api', path);
+
 
 // const fileUpload = require('express-fileupload')
 // app.use(fileUpload({
