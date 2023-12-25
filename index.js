@@ -5,7 +5,7 @@ require("dotenv").config()
 
 const PORT = process.env.PORT || 3000
 
-app.use(express.json())
+
 const corsOptions = {
     origin: 'https://x-penso.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -14,7 +14,7 @@ const corsOptions = {
   };
   
   app.use(cors(corsOptions));
-  
+  app.use(express.json());
 const path = require('./routes/expense')
 app.use('/api' , path)
 
