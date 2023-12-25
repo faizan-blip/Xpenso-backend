@@ -2,15 +2,15 @@ const express = require('express')
 const router = express.Router()
 
 
-const {createCategory , getCategory ,deleteCategory ,createBudget,updateBudget ,getBudget,createExpense,editExpense,deleteExpense,calculateTotalExpense,getExpense} = require('../controllers/Expense')
+const {createBudget,updateBudget ,getBudget,createExpense,editExpense,deleteExpense,calculateTotalExpense,getExpense} = require('../controllers/Expense')
 const {signup , login,forgotpassword ,resetpassword} = require('../controllers/Auth')
 // const {fileupload} = require('../controllers/fileUpload')
 const mailsender = require('../controllers/mailsender')
 
 
-router.post("/createCategory" , createCategory)
-router.get("/getCategory" , getCategory)
-router.delete("/deleteCategory/:id" ,deleteCategory)
+// router.post("/createCategory" , createCategory)
+// router.get("/getCategory" , getCategory)
+// router.delete("/deleteCategory/:id" ,deleteCategory)
 router.delete("/deleteExpense/:id" ,deleteExpense)
 router.post("/createBudget" ,createBudget)
 router.post("/createExpense" ,createExpense)
