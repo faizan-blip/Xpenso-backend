@@ -2,6 +2,8 @@ const Auth = require('../models/AuthSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const forgotlink = require('./forgotlink');
+const AuthSchema = require('../models/AuthSchema');
+const sendmessage = require('./sendmessage');
 require("dotenv").config()
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -239,6 +241,48 @@ exports.resetpassword = async (req, res) => {
     res.status(500).json({
       status: false,
       message: 'An error occurred while resetting the password.',
+    });
+  }
+};
+
+exports.sendmessage = async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    const userToken = req.headers.authorization.split(' ')[1];
+  const validtoken = await AuthSchema.find({userToken})
+
+    if (!validtoken || validtoken.length === 0) {
+      return res.status(401).json({
+        status: false,
+        message: "Please Login to Send Message.",
+      });
+    }
+    
+
+    const existingUser = await AuthSchema.findOne({ email});
+
+    if (!existingUser) {
+      res.status(409).json({
+        status: false,
+        message: "Create your account to contact us...",
+      });
+    }
+
+    const auth = await AuthSchema.find();
+    const authEmail = auth[auth.length - 1]?.email;
+
+    await sendmessage(name, email, message, authEmail);
+
+    res.status(201).json({
+      success: true,
+      data: { name, email, message },
+      message: "We will contact you soon...",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      status: false,
+      message: 'An error occurred while sending a message.',
     });
   }
 };

@@ -18,5 +18,11 @@ const Auth = new mongoose.Schema({
         type:String,
         required:true,
     },
+    message:{
+        type:String
+    },
+    userToken:{
+        type:String
+    }
 })
 module.exports = mongoose.model("Auth" , Auth)

@@ -3,7 +3,7 @@ const router = express.Router()
 const passport = require('passport');
 
 const {createBudget,updateBudget ,getBudget,createExpense,editExpense,deleteExpense,calculateTotalExpense,getExpense} = require('../controllers/Expense')
-const {signup , login,forgotpassword ,resetpassword} = require('../controllers/Auth')
+const {signup , login,forgotpassword ,resetpassword,sendmessage} = require('../controllers/Auth')
 // const {fileupload} = require('../controllers/fileUpload')
 const mailsender = require('../controllers/mailsender')
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -34,5 +34,6 @@ router.post('/resetpassword/:id/:token', resetpassword);
 // router.post('/imageUpload' , fileupload)
 router.post('/mailsender' , mailsender)
 router.post('/calculateTotalExpense' , calculateTotalExpense)
+router.post('/sendmessage' , sendmessage)
 
 module.exports = router
