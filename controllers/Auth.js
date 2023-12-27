@@ -248,9 +248,9 @@ exports.resetpassword = async (req, res) => {
 exports.sendmessage = async (req, res) => {
   try {
     const { name, email, message } = req.body;
-    const userToken = req.headers.authorization.split(' ')[1];
-  const validtoken = await AuthSchema.find({userToken})
-
+    const token = req.headers.authorization.split(' ')[1];
+  const validtoken = await AuthSchema.findOne({_id:token})
+   console.log(validtoken);
     if (!validtoken || validtoken.length === 0) {
       return res.status(401).json({
         status: false,
