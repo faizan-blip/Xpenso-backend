@@ -249,20 +249,20 @@ exports.sendmessage = async (req, res) => {
   try {
     const { name, email, message } = req.body;
     const token = req.headers.authorization.split(' ')[1];
-  const validtoken = await AuthSchema.findOne({_id:token})
-   console.log(validtoken);
-    if (!validtoken || validtoken.length === 0) {
+
+    const validToken = await AuthSchema.findOne({ _id: token });
+
+    if (validToken == undefined) {
       return res.status(401).json({
         status: false,
         message: "Please Login to Send Message.",
       });
     }
-    
 
-    const existingUser = await AuthSchema.findOne({ email});
+    const existingUser = await AuthSchema.findOne({ email });
 
     if (!existingUser) {
-      res.status(409).json({
+      return res.status(409).json({
         status: false,
         message: "Create your account to contact us...",
       });
@@ -273,16 +273,17 @@ exports.sendmessage = async (req, res) => {
 
     await sendmessage(name, email, message, authEmail);
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       data: { name, email, message },
       message: "We will contact you soon...",
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({
+    return res.status(500).json({
       status: false,
       message: 'An error occurred while sending a message.',
     });
   }
 };
+

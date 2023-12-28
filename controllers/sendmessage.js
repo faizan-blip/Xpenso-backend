@@ -20,8 +20,7 @@ const sendmessage = async (name , message,email) => {
       html: `
         <p>Name: ${name}</p>
         <p>Email: ${email}</p>
-        <p>Message:</p>
-        <p>${message}</p>
+        <p>Message:${message}</p>
         <p>Thank you for using our service!</p>
       `,
     });
