@@ -249,10 +249,9 @@ exports.sendmessage = async (req, res) => {
   try {
     const { name, email, message } = req.body;
     const token = req.headers.authorization.split(' ')[1];
-
     const validToken = await AuthSchema.findOne({ _id: token });
-
-    if (validToken == undefined) {
+  
+    if (!validToken ) {
       return res.status(401).json({
         status: false,
         message: "Please Login to Send Message.",
@@ -272,7 +271,6 @@ exports.sendmessage = async (req, res) => {
     const authEmail = auth[auth.length - 1]?.email;
 
     await sendmessage(name, email, message, authEmail);
-
     return res.status(201).json({
       success: true,
       data: { name, email, message },
