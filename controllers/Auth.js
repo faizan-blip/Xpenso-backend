@@ -146,7 +146,7 @@ exports.forgotpassword = async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "5m",
     });
-    const link = `http://localhost:3000/forgotpassword/${user._id}/${token}`;
+    const link = `https://x-penso.vercel.app/forgotpassword/${user._id}/${token}`;
     await forgotlink(link, email);
     res.status(201).json({
       success: true,
