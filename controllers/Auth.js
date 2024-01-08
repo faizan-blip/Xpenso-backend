@@ -66,6 +66,31 @@ exports.signup = async (req, res) => {
   }
 };
 
+
+exports.googlesignin = async(req , res) =>{
+  try{
+    const {email , name} = req.body;
+    if (!email || !name) {
+      return res.status(400).json({
+        status: false,
+        message: "Please provide Login Details",
+      });
+    }
+    const userprofile = await Auth.create({name , email })
+    res.status(201).json({
+      status: true,
+      data: userprofile,
+      message:`${userprofile.name} Logged in.`
+    });
+  }catch(err){
+    console.error(err);
+    res.status(500).json({
+      status: false,
+      message: "An error occurred while Google login.",
+    });
+  }
+}
+
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
