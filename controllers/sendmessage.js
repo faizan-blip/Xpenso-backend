@@ -14,7 +14,7 @@ const sendmessage = async (name ,email , message) => {
     });
 
     let info = await transporter.sendMail({
-        from: email,
+        from: "no-reply",
         to: process.env.MAIL_USER,
         subject: '📧 Contact Us Request 📧',
       html: `
